@@ -43,7 +43,8 @@ async function getWeather(query) {
   let description = data.weather[0].description;
   let actualTemp = data.main.temp;
   let feelsLikeTemp = data.main.feels_like;
-  let place = data.name + ", " + data.sys.country;
+  // let place = data.name + ", " + data.sys.country;
+  let place = `${data.name}, ${data.sys.country}`;
   // create JS date object from Unix timestamp
   let updatedAt = new Date(data.dt * 1000);
   return {

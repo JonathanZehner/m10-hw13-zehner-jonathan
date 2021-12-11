@@ -18,6 +18,8 @@ This project converts a weather widget written using ES5 JavaScript to use ES6+ 
 
 - W3Schools. (2021). _JavaScript Arrow Function_. https://www.w3schools.com/js/js_arrow_function.asp
 
+- Dmitri Pavlutin. (July 31, 2020). _String interpolation in JavaScript_. https://dmitripavlutin.com/string-interpolation-in-javascript/
+
 ---
 
 ### **Issues Experienced:**
