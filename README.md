@@ -24,6 +24,8 @@ This project converts a weather widget written using ES5 JavaScript to use ES6+ 
 
 ### **Issues Experienced:**
 
-1. No issues experienced.
+1. Every time I destructure an object, the widget breaks.
+
+   #### Resolution: No Solution found.
 
 ---
