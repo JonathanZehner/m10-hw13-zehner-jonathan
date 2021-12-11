@@ -4,7 +4,7 @@ var formEl = document.querySelector('form');
 var inputEl = document.querySelector('input');
 
 
-formEl.onsubmit = function(e) {
+formEl.onsubmit = (e) => {
   // prevent the page from refreshing
   e.preventDefault();
 
@@ -22,43 +22,39 @@ formEl.onsubmit = function(e) {
 }
 
 // calls the OpenWeather API and returns an object of weather info
-function getWeather(query) {
+async function getWeather(query) {
   // default search to USA
   if (!query.includes(",")) query += ',us'
   // return the fetch call which returns a promise
   // allows us to call .then on this function
-  return fetch(
+  const res = await fetch(
     'https://api.openweathermap.org/data/2.5/weather?q=' +
     query +
     '&units=imperial&appid=6efff70fe1477748e31c17d1c504635f'
-  )
-    .then(function(res) {
-      return res.json()
-    })
-    .then(function(data) {
-      // location not found, throw error/reject promise
-      if (data.cod === "404") throw new Error('location not found')
-      // create weather icon URL
-      let iconUrl = 'https://openweathermap.org/img/wn/' +
-        data.weather[0].icon +
-        '@2x.png'
-      let description = data.weather[0].description
-      let actualTemp = data.main.temp
-      let feelsLikeTemp = data.main.feels_like
-      let place = data.name + ", " + data.sys.country
-      // create JS date object from Unix timestamp
-      let updatedAt = new Date(data.dt * 1000)
-      // this object is used by displayWeatherInfo to update the HTML
-      return {
-        coords: data.coord.lat + ',' + data.coord.lon,
-        description: description,
-        iconUrl: iconUrl,
-        actualTemp: actualTemp,
-        feelsLikeTemp: feelsLikeTemp,
-        place: place,
-        updatedAt: updatedAt
-      }
-    })
+  );
+  const data = await res.json();
+  // location not found, throw error/reject promise
+  if (data.cod === "404")
+    throw new Error('location not found');
+  // create weather icon URL
+  let iconUrl = 'https://openweathermap.org/img/wn/' +
+    data.weather[0].icon +
+    '@2x.png';
+  let description = data.weather[0].description;
+  let actualTemp = data.main.temp;
+  let feelsLikeTemp = data.main.feels_like;
+  let place = data.name + ", " + data.sys.country;
+  // create JS date object from Unix timestamp
+  let updatedAt = new Date(data.dt * 1000);
+  return {
+    coords: data.coord.lat + ',' + data.coord.lon,
+    description: description,
+    iconUrl: iconUrl,
+    actualTemp: actualTemp,
+    feelsLikeTemp: feelsLikeTemp,
+    place: place,
+    updatedAt: updatedAt
+  };
 }
 
 // show error message when location isn't found
